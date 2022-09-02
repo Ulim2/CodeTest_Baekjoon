@@ -1,0 +1,31 @@
+# #####2343_기타레슨
+N, M = map(int, input().split())
+
+bluray = list(map(int, input().split()))
+
+# 블루레이 크기(최소: 강의 중 제일 긴 강의, 최대: 총 강의 최대 합)
+start = max(bluray)
+end = sum(bluray)
+answer = 0
+
+while start <= end:
+    mid = (start + end) // 2
+    cnt = 1     # 블루레이 수
+    tmp = 0     # 각 블루레이의 길이
+    
+    for i in range(N):
+        # 현재 블루레이의 총 길이 > 기준 값
+        if tmp + bluray[i] > mid:
+            cnt += 1
+            tmp = 0
+        tmp += bluray[i]
+
+    # 블루레이 갯수가 더 많다면 크기 늘리기
+    if cnt > M:
+        start = mid + 1
+    else:
+        end = mid - 1
+        answer = mid
+
+
+print(answer)
